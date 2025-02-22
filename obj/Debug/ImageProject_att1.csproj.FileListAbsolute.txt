@@ -1,0 +1,11 @@
+C:\Users\Данил\source\repos\ImageProject_att1\bin\Debug\ImageProject_att1.exe.config
+C:\Users\Данил\source\repos\ImageProject_att1\bin\Debug\ImageProject_att1.exe
+C:\Users\Данил\source\repos\ImageProject_att1\bin\Debug\ImageProject_att1.pdb
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.AssemblyReference.cache
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.SuggestedBindingRedirects.cache
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.Form1.resources
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.Properties.Resources.resources
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.GenerateResource.cache
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.CoreCompileInputs.cache
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.exe
+C:\Users\Данил\source\repos\ImageProject_att1\obj\Debug\ImageProject_att1.pdb
