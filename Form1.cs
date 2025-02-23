@@ -86,23 +86,32 @@ namespace ImageProject_att1
 
             int i;
 
-            int.TryParse(textBox1.Text, out int error_pixels); // задаю кол-во испорченных пикселей
-
             Random rnd = new Random();
 
-            for (i = 0; i < error_pixels; ++i)
+            // парсим стринг в текст
+
+            if (int.TryParse(textBox1.Text, out int error_pixels))
             {
 
-                int x = rnd.Next(bmp.Width), y = rnd.Next(bmp.Height); // генерирую случайные координаты
+                for (i = 0; i < error_pixels; ++i)
+                {
 
-                int b = rnd.Next(2); // реализация помехи соль - перец
-                if (b == 1)
-                    bmp.SetPixel(x, y, white);
-                else
-                    bmp.SetPixel(x, y, black);
+                    int x = rnd.Next(bmp.Width), y = rnd.Next(bmp.Height); // генерирую случайные координаты
+
+                    int b = rnd.Next(2); // реализация помехи соль - перец
+                    if (b == 1)
+                        bmp.SetPixel(x, y, white);
+                    else
+                        bmp.SetPixel(x, y, black);
+                }
+
+                pictureBox2.Image = bmp;
             }
-              
-            pictureBox2.Image = bmp;
+            else
+            {
+                MessageBox.Show("Введите корректное число");
+            }
+
         }
 
         private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
