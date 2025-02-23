@@ -18,6 +18,7 @@ namespace ImageProject_att1
             InitializeComponent();
         }
 
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -30,7 +31,7 @@ namespace ImageProject_att1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            /// todo
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -130,6 +131,49 @@ namespace ImageProject_att1
 
         }
 
-     
+        private void button4_Click(object sender, EventArgs e) // кнопка сохранения изображения
+        {
+            if (pictureBox2.Image != null)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog()) // используем диалоговое окно
+                {
+
+
+                    sfd.Filter = "JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png|BMP (*.bmp)|*.bmp";
+                    sfd.FileName = "output_image";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+
+                        string filePath = sfd.FileName;
+
+                        switch (System.IO.Path.GetExtension(filePath).ToLowerInvariant())
+                        {
+                            case ".jpg":
+                                pictureBox2.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                break;
+                            case ".png":
+                                pictureBox2.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                                break;
+                            case ".bmp":
+                                pictureBox2.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Bmp);
+                                break;
+
+                            default:
+                                MessageBox.Show("Unsupported image format.");
+                                return;
+                        }
+
+                        MessageBox.Show($"Изображение успешно сохранено по пути: {filePath}");
+                    }
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Изображение не найдено!");
+            }
+        }
+
     }
 }
