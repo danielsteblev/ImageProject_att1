@@ -84,7 +84,10 @@ namespace ImageProject_att1
             Color white = Color.FromArgb(255, 255, 255);
             Color black = Color.FromArgb(0, 0, 0);
 
-            int i, error_pixels = 1000; // задаю кол-во испорченных пикселей
+            int i;
+
+            int.TryParse(textBox1.Text, out int error_pixels); // задаю кол-во испорченных пикселей
+
             Random rnd = new Random();
 
             for (i = 0; i < error_pixels; ++i)
@@ -176,5 +179,9 @@ namespace ImageProject_att1
             }
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
