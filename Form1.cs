@@ -51,6 +51,7 @@ namespace ImageProject_att1
                     pictureBox1.Image = new Bitmap(dlg.FileName);
                 }
             }
+
         }
 
 
