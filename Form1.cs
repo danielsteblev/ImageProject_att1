@@ -90,7 +90,7 @@ namespace ImageProject_att1
 
             // парсим стринг в текст
 
-            if (int.TryParse(textBox1.Text, out int error_pixels))
+            if (int.TryParse(textBox1.Text, out int error_pixels)) // если число - инт
             {
 
                 for (i = 0; i < error_pixels; ++i)
@@ -109,7 +109,7 @@ namespace ImageProject_att1
             }
             else
             {
-                MessageBox.Show("Введите корректное число");
+                MessageBox.Show("Введите корректное число интенсивности!");
             }
 
         }
