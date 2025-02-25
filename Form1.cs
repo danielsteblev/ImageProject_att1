@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -79,7 +80,7 @@ namespace ImageProject_att1
         // соль - перец
         private void button3_Click(object sender, EventArgs e)
         {
-            Bitmap bmp = new Bitmap(pictureBox1.Image); // создаю копию исходного изображения
+            Bitmap bmp = (Bitmap)pictureBox1.Image; // создаю копию исходного изображения
 
             Color white = Color.FromArgb(255, 255, 255);
             Color black = Color.FromArgb(0, 0, 0);
@@ -190,6 +191,53 @@ namespace ImageProject_att1
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonLab2_Click(object sender, EventArgs e) // синтез волны
+        {
+           
+
+            Bitmap bmp = (Bitmap)pictureBox1.Image; // 
+
+            int[] br = { 0, 0, 0 };
+            float[] u = { 0.3f, 0, 0.05f };
+            float[] v = { 0, 0.2f, 0.3f };
+
+            int brM;
+
+            for (int y = 0; y < bmp.Height; ++y)
+            {
+                for (int x = 0; x < bmp.Width; ++x)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        br[i] = Convert.ToInt32(50 * Math.Cos(u[i] * x + v[i] * y) + 100); // Формула синтеза
+
+                        brM = (br[0] + br[1] + br[2]) / 3;
+
+                        if (brM > 255) // Проверка на выход за диапазон 0-255
+                        {
+                            brM = 255;
+                        }
+
+                        else if (brM < 0) // Проверка на выход за диапазон 0-255
+                        {
+                            brM = 0;
+                        }
+                   
+                        Color cl = Color.FromArgb(brM, brM, brM);
+                        bmp.SetPixel(x, y, cl);
+                    }
+                }
+            }
+
+            pictureBox2.Image = bmp;
+        
+        }
+
+        private void pictureBox2_Click_1(object sender, EventArgs e)
         {
 
         }
