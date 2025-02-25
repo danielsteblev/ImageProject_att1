@@ -199,9 +199,9 @@ namespace ImageProject_att1
         {
            
 
-            Bitmap bmp = (Bitmap)pictureBox1.Image; // 
+            Bitmap bmp = (Bitmap)pictureBox1.Image; // копия исходника
 
-            int[] br = { 0, 0, 0 };
+            int[] br = { 0, 0, 0 }; // храним яркость
             float[] u = { 0.3f, 0, 0.05f };
             float[] v = { 0, 0.2f, 0.3f };
 
@@ -213,9 +213,10 @@ namespace ImageProject_att1
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        br[i] = Convert.ToInt32(50 * Math.Cos(u[i] * x + v[i] * y) + 100); // Формула синтеза
+                        // вычисление яркости для каждого пикселя
+                        br[i] = Convert.ToInt32(50 * Math.Cos(u[i] * x + v[i] * y) + 100); // Формула синтеза из мудла
 
-                        brM = (br[0] + br[1] + br[2]) / 3;
+                        brM = (br[0] + br[1]) / 3; // средняя яркость для оттенов серого
 
                         if (brM > 255) // Проверка на выход за диапазон 0-255
                         {
