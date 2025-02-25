@@ -31,7 +31,7 @@ namespace ImageProject_att1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            /// todo
+           
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace ImageProject_att1
 
             // парсим стринг в текст
 
-            if (int.TryParse(textBox1.Text, out int error_pixels)) // если число - инт
+            if (int.TryParse(textBox1.Text, out int error_pixels) & error_pixels > 0) // если число - инт
             {
 
                 for (i = 0; i < error_pixels; ++i)
@@ -98,7 +98,7 @@ namespace ImageProject_att1
 
                     int x = rnd.Next(bmp.Width), y = rnd.Next(bmp.Height); // генерирую случайные координаты
 
-                    int b = rnd.Next(2); // реализация помехи соль - перец
+                    int b = rnd.Next(2); // ставлю пиксели по этим координатам 
                     if (b == 1)
                         bmp.SetPixel(x, y, white);
                     else
