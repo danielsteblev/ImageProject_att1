@@ -90,7 +90,8 @@ namespace ImageProject_att1
 
             // парсим стринг в текст
 
-            if (int.TryParse(textBox1.Text, out int error_pixels) & error_pixels > 0) // если число - инт
+            if (int.TryParse(textBox1.Text, out int error_pixels) & error_pixels > 0) // если число - инт и > 0
+
             {
 
                 for (i = 0; i < error_pixels; ++i)
