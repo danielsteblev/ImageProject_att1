@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ImageProject_att1
 {
@@ -32,7 +34,7 @@ namespace ImageProject_att1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -57,27 +59,35 @@ namespace ImageProject_att1
 
 
         // метод для переделывания изображения в чб вариант
-        private void button2_Click(object sender, EventArgs e) 
+        private void button2_Click(object sender, EventArgs e)
         {
-            Bitmap bmp = (Bitmap)pictureBox1.Image, bmp1 = new Bitmap(bmp.Width, bmp.Height);
-            int x, y, r, g, b, br;
-            Color cl;
-            for(y=0; y<bmp.Height; ++y)
-                for(x=0; x<bmp.Width; ++x)
-                {
-                    cl = bmp.GetPixel(x, y);
-                    r = cl.R; g = cl.G; b = cl.B;
+            if (pictureBox1.Image != null)
+            {
+                Bitmap bmp = (Bitmap)pictureBox1.Image,
+                bmp1 = new Bitmap(bmp.Width, bmp.Height);
+                int x, y, r, g, b, br;
+                Color cl;
+                for (y = 0; y < bmp.Height; ++y)
+                    for (x = 0; x < bmp.Width; ++x)
+                    {
+                        cl = bmp.GetPixel(x, y);
+                        r = cl.R; g = cl.G; b = cl.B;
 
-                    br = (r + g + b) / 3;
+                        br = (r + g + b) / 3;
 
-                    cl = Color.FromArgb(br, br, br);
-                    bmp1.SetPixel(x, y, cl);
-                }
-            pictureBox2.Image = bmp1;
+                        cl = Color.FromArgb(br, br, br);
+                        bmp1.SetPixel(x, y, cl);
+                    }
+                pictureBox2.Image = bmp1;
+            }
+            else
+            {
+                MessageBox.Show("Изображение не найдено!");
+            }
         }
 
 
-        // соль - перец
+        // шум соль - перец
         private void button3_Click(object sender, EventArgs e)
         {
             Bitmap bmp = (Bitmap)pictureBox1.Image; // создаю копию исходного изображения
@@ -91,7 +101,7 @@ namespace ImageProject_att1
 
             // парсим стринг в текст
 
-            if (int.TryParse(textBox1.Text, out int error_pixels) & error_pixels > 0) // если число - инт и > 0
+            if (int.TryParse(textBox1.Text, out int error_pixels) & error_pixels > 0 & pictureBox1.Image != null) // если число - инт и > 0
 
             {
 
@@ -100,7 +110,10 @@ namespace ImageProject_att1
 
                     int x = rnd.Next(bmp.Width), y = rnd.Next(bmp.Height); // генерирую случайные координаты
 
-                    int b = rnd.Next(2); // ставлю пиксели по этим координатам 
+
+                    // ставлю пиксели по этим координатам 
+                    int b = rnd.Next(2);
+
                     if (b == 1)
                         bmp.SetPixel(x, y, white);
                     else
@@ -111,7 +124,7 @@ namespace ImageProject_att1
             }
             else
             {
-                MessageBox.Show("Введите корректное число интенсивности!");
+                MessageBox.Show("Изображение не найдено или неверно введено число интенсивности!");
             }
 
         }
@@ -197,50 +210,225 @@ namespace ImageProject_att1
 
         private void buttonLab2_Click(object sender, EventArgs e) // синтез волны
         {
-           
 
-            Bitmap bmp = (Bitmap)pictureBox1.Image; // копия исходника
-
-            int[] br = { 0, 0, 0 }; // храним яркость
-            float[] u = { 0.3f, 0, 0.05f };
-            float[] v = { 0, 0.2f, 0.3f };
-
-            int brM;
-
-            for (int y = 0; y < bmp.Height; ++y)
+            if (pictureBox2.Image != null)
             {
-                for (int x = 0; x < bmp.Width; ++x)
+
+                Bitmap bmp = (Bitmap)pictureBox1.Image; // копия исходника
+
+                int[] br = { 0, 0, 0 }; // храним яркость
+                float[] u = { 0.3f, 0, 0.05f };
+                float[] v = { 0, 0.2f, 0.3f };
+
+                int brM;
+
+                for (int y = 0; y < bmp.Height; ++y)
                 {
-                    for (int i = 0; i < 3; i++)
+                    for (int x = 0; x < bmp.Width; ++x)
                     {
-                        // вычисление яркости для каждого пикселя
-                        br[i] = Convert.ToInt32(50 * Math.Cos(u[i] * x + v[i] * y) + 100); // Формула синтеза из мудла
-
-                        brM = (br[0] + br[1]) / 3; // средняя яркость для оттенов серого
-
-                        if (brM > 255) // Проверка на выход за диапазон 0-255
+                        for (int i = 0; i < 3; i++)
                         {
-                            brM = 255;
-                        }
+                            // вычисление яркости для каждого пикселя
+                            br[i] = Convert.ToInt32(50 * Math.Cos(u[i] * x + v[i] * y) + 100); // Формула синтеза из мудла
 
-                        else if (brM < 0) // Проверка на выход за диапазон 0-255
-                        {
-                            brM = 0;
+                            brM = (br[0] + br[1] + br[2]) / 3; // средняя яркость для оттенов серого
+
+                            if (brM > 255) // Проверка на выход за диапазон 0-255
+                            {
+                                brM = 255;
+                            }
+
+                            else if (brM < 0) // Проверка на выход за диапазон 0-255
+                            {
+                                brM = 0;
+                            }
+
+                            Color cl = Color.FromArgb(brM, brM, brM);
+                            bmp.SetPixel(x, y, cl);
                         }
-                   
-                        Color cl = Color.FromArgb(brM, brM, brM);
-                        bmp.SetPixel(x, y, cl);
                     }
                 }
+
+                pictureBox2.Image = bmp;
+            }
+            else
+            {
+                MessageBox.Show("Изображение не найдено!");
             }
 
-            pictureBox2.Image = bmp;
-        
         }
 
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
 
         }
+
+        private void lowPassFilterButton_Click(object sender, EventArgs e)
+        {
+            if (pictureBox2.Image != null)
+            {
+                Bitmap bmp = (Bitmap)pictureBox1.Image; // копия исходника
+
+                int width = bmp.Width;
+                int height = bmp.Height;
+
+                double[,] filter = new double[,]
+                    {
+                    { 1, 2, 1 },
+                    { 2, 4, 2 },
+                    { 1, 2, 1 }
+                    };
+
+                double filterSum = 16; // Сумма всех коэффициентов фильтра
+
+                for (int x = 1; x < width - 1; x++) // Начинаем с 1, чтобы избежать выхода за границы
+                {
+                    for (int y = 1; y < height - 1; y++)
+                    {
+                        double red = 0, green = 0, blue = 0;
+
+                        // Применение фильтра
+                        for (int fx = -1; fx <= 1; fx++)
+                        {
+                            for (int fy = -1; fy <= 1; fy++)
+                            {
+                                int pixelX = x + fx;
+                                int pixelY = y + fy;
+
+                                Color pixelColor = bmp.GetPixel(pixelX, pixelY);
+
+                                red += pixelColor.R * filter[fx + 1, fy + 1];
+                                green += pixelColor.G * filter[fx + 1, fy + 1];
+                                blue += pixelColor.B * filter[fx + 1, fy + 1];
+                            }
+                        }
+
+                        // Нормализуем значения и сохраняем новый пиксель
+                        int r = (int)(red / filterSum);
+                        int g = (int)(green / filterSum);
+                        int b = (int)(blue / filterSum);
+
+                        r = Math.Min(255, Math.Max(0, r));
+                        g = Math.Min(255, Math.Max(0, g));
+                        b = Math.Min(255, Math.Max(0, b));
+
+                        bmp.SetPixel(x, y, Color.FromArgb(r, g, b));
+                    }
+                }
+
+                pictureBox2.Image = bmp; // копируем новое фото
+            }
+            else
+            {
+                MessageBox.Show("Изображение не найдено!");
+            }
+        }
+
+        private void additiveNoiseButton_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBox2.Text, out int sigma) & sigma > 0 & pictureBox1.Image != null)
+            {
+                Random rnd = new Random();
+                Bitmap bmp = (Bitmap)pictureBox1.Image, // копия исходника
+                bmp1 = new Bitmap(bmp.Width, bmp.Height);
+                int x, y, r, g, b;
+                Color cl;
+
+                for (y = 0; y < bmp.Height; ++y)
+                    for (x = 0; x < bmp.Width; ++x)
+                    {
+                        cl = bmp.GetPixel(x, y);
+                        r = cl.R; g = cl.G; b = cl.B;
+                        double d = 0;
+
+                        for (int i = 0; i < 12; i++)
+                        {
+                            d += rnd.NextDouble();
+                        }
+
+                        d -= 6;
+
+                        r += Convert.ToInt32(sigma * d);
+                        g += Convert.ToInt32(sigma * d);
+                        b += Convert.ToInt32(sigma * d);
+
+
+                        // проверка на выход за диапазон
+                        if (r < 0) r = 0; else if (r > 255) r = 255;
+                        if (g < 0) g = 0; else if (g > 255) g = 255;
+                        if (b < 0) b = 0; else if (b > 255) b = 255;
+
+                        cl = Color.FromArgb(r, g, b);
+                        bmp1.SetPixel(x, y, cl);
+                    }
+                pictureBox2.Image = bmp1;
+            }
+            else
+            {
+                MessageBox.Show("Изображение не найдено или введено неверное число интенсивности!");
+            }
+        }
+
+        private void ColorNoiseButton_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBox2.Text, out int sigma) & sigma > 0 & pictureBox1.Image != null)
+            {
+                Random rnd = new Random();
+                Bitmap bmp = (Bitmap)pictureBox1.Image, // копия исходника
+                bmp1 = new Bitmap(bmp.Width, bmp.Height);
+                int x, y, r, g, b;
+                Color cl;
+
+                for (y = 0; y < bmp.Height; ++y)
+                    for (x = 0; x < bmp.Width; ++x)
+                    {
+                        cl = bmp.GetPixel(x, y);
+                        r = cl.R; g = cl.G; b = cl.B;
+
+                        double d = 0;
+
+                        // r
+                        for (int i = 0; i < 12; i++)
+                        {
+                            d += rnd.NextDouble();
+                        }
+                        d -= 6;
+                        r += Convert.ToInt32(sigma * d);
+                        d = 0;
+
+                        // g
+                        for (int i = 0; i < 12; i++)
+                        {
+                            d += rnd.NextDouble();
+                        }
+                        d -= 6;
+                        r += Convert.ToInt32(sigma * d);
+                        d = 0;
+
+                        // b 
+                        for (int i = 0; i < 12; i++)
+                        {
+                            d += rnd.NextDouble();
+                        }
+                        d -= 6;
+                        b += Convert.ToInt32(sigma * d);
+
+                        // проверка на выход за диапазон
+                        if (r < 0) r = 0; else if (r > 255) r = 255;
+                        if (g < 0) g = 0; else if (g > 255) g = 255;
+                        if (b < 0) b = 0; else if (b > 255) b = 255;
+
+                        cl = Color.FromArgb(r, g, b);
+                        bmp1.SetPixel(x, y, cl);
+                    }
+                pictureBox2.Image = bmp1;
+            }
+            else
+            {
+                MessageBox.Show("Изображение не найдено или введено неверное число интенсивности!");
+            }
+        }
     }
+
+
 }
