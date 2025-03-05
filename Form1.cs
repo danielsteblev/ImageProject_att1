@@ -110,7 +110,6 @@ namespace ImageProject_att1
 
                     int x = rnd.Next(bmp.Width), y = rnd.Next(bmp.Height); // генерирую случайные координаты
 
-
                     // ставлю пиксели по этим координатам 
                     int b = rnd.Next(2);
 
@@ -263,6 +262,8 @@ namespace ImageProject_att1
 
         }
 
+
+        // фильтр нижних частот
         private void lowPassFilterButton_Click(object sender, EventArgs e)
         {
             if (pictureBox2.Image != null)
@@ -369,6 +370,7 @@ namespace ImageProject_att1
             }
         }
 
+
         private void ColorNoiseButton_Click(object sender, EventArgs e)
         {
             if (int.TryParse(textBox2.Text, out int sigma) & sigma > 0 & pictureBox1.Image != null)
@@ -428,6 +430,9 @@ namespace ImageProject_att1
                 MessageBox.Show("Изображение не найдено или введено неверное число интенсивности!");
             }
         }
+
+
+        // todo
     }
 
 

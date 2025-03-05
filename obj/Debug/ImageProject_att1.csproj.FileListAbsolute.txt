@@ -20,3 +20,14 @@ C:\Users\HUAWEI\Source\Repos\ImageProject_att_1\obj\Debug\ImageProject_att1.cspr
 C:\Users\HUAWEI\Source\Repos\ImageProject_att_1\obj\Debug\ImageProject_att1.exe
 C:\Users\HUAWEI\Source\Repos\ImageProject_att_1\obj\Debug\ImageProject_att1.pdb
 C:\Users\HUAWEI\Source\Repos\ImageProject_att_1\bin\Debug\ImageProject_att1.pdb
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\bin\Debug\ImageProject_att1.exe.config
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\bin\Debug\ImageProject_att1.exe
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\bin\Debug\ImageProject_att1.pdb
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.AssemblyReference.cache
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.SuggestedBindingRedirects.cache
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.Form1.resources
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.Properties.Resources.resources
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.GenerateResource.cache
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.csproj.CoreCompileInputs.cache
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.exe
+C:\Users\HUAWEI\Source\Repos\ImageProject_att1\obj\Debug\ImageProject_att1.pdb
