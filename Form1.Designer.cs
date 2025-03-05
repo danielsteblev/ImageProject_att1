@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ColorNoiseButton = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.additiveNoiseButton = new System.Windows.Forms.Button();
             this.lowPassFilterButton = new System.Windows.Forms.Button();
             this.buttonLab2 = new System.Windows.Forms.Button();
@@ -40,8 +42,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.ColorNoiseButton = new System.Windows.Forms.Button();
+            this.filterButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -54,6 +55,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.filterButton);
             this.panel1.Controls.Add(this.ColorNoiseButton);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.additiveNoiseButton);
@@ -71,6 +73,24 @@
             this.panel1.Size = new System.Drawing.Size(1179, 187);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // ColorNoiseButton
+            // 
+            this.ColorNoiseButton.Location = new System.Drawing.Point(839, 96);
+            this.ColorNoiseButton.Name = "ColorNoiseButton";
+            this.ColorNoiseButton.Size = new System.Drawing.Size(220, 28);
+            this.ColorNoiseButton.TabIndex = 9;
+            this.ColorNoiseButton.Text = "Цветной шум";
+            this.ColorNoiseButton.UseVisualStyleBackColor = true;
+            this.ColorNoiseButton.Click += new System.EventHandler(this.ColorNoiseButton_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(767, 96);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(63, 22);
+            this.textBox2.TabIndex = 8;
             // 
             // additiveNoiseButton
             // 
@@ -208,23 +228,15 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click_1);
             // 
-            // textBox2
+            // filterButton
             // 
-            this.textBox2.Location = new System.Drawing.Point(767, 96);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(63, 22);
-            this.textBox2.TabIndex = 8;
-            // 
-            // ColorNoiseButton
-            // 
-            this.ColorNoiseButton.Location = new System.Drawing.Point(839, 96);
-            this.ColorNoiseButton.Name = "ColorNoiseButton";
-            this.ColorNoiseButton.Size = new System.Drawing.Size(220, 28);
-            this.ColorNoiseButton.TabIndex = 9;
-            this.ColorNoiseButton.Text = "Цветной шум";
-            this.ColorNoiseButton.UseVisualStyleBackColor = true;
-            this.ColorNoiseButton.Click += new System.EventHandler(this.ColorNoiseButton_Click);
+            this.filterButton.Location = new System.Drawing.Point(276, 132);
+            this.filterButton.Name = "filterButton";
+            this.filterButton.Size = new System.Drawing.Size(268, 32);
+            this.filterButton.TabIndex = 10;
+            this.filterButton.Text = "Фильтр нижних (лекция)";
+            this.filterButton.UseVisualStyleBackColor = true;
+            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
             // 
             // Form1
             // 
@@ -268,6 +280,7 @@
         private System.Windows.Forms.Button additiveNoiseButton;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button ColorNoiseButton;
+        private System.Windows.Forms.Button filterButton;
     }
 }
 

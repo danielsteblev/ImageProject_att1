@@ -431,6 +431,47 @@ namespace ImageProject_att1
             }
         }
 
+        private void filterButton_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image != null)
+            {
+                Bitmap bmp = (Bitmap)pictureBox1.Image,
+                    bmp1 = new Bitmap(bmp.Width, bmp.Height);
+                int x, y, r, g, b; Color cl;
+
+                for(y = 2; y <= bmp.Height - 3; ++y)
+                    for(x = 2; x <= bmp.Width - 3; ++x)
+                    {
+                        double rs = 0, gs = 0, bs = 0;
+                        for(int i = x - 2; i <= x + 2; ++i)
+                            for(int j = y - 2; j <= y + 2; ++j)
+                            {
+                                cl = bmp.GetPixel(i, j);
+                                r = cl.R; g = cl.G; b = cl.B;
+                                rs += r; gs += g; bs += b;
+                                
+                            }
+                        r = Convert.ToInt32(rs / 25);
+                        g = Convert.ToInt32(gs / 25);
+                        b = Convert.ToInt32(bs / 25);
+
+                        if (r < 0) r = 0; else if (r > 255) r = 255;
+                        if (g < 0) g = 0; else if (g > 255) g = 255;
+                        if (b < 0) b = 0; else if (b > 255) b = 255;
+
+                        cl = Color.FromArgb(r, g, b);
+                        bmp1.SetPixel(x, y, cl);
+
+                    }
+                pictureBox2.Image = bmp1;
+            }
+            else
+            {
+                MessageBox.Show("Изображение не найдено!");
+            }
+
+        }
+
 
         // todo
     }
