@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.filterButton = new System.Windows.Forms.Button();
             this.ColorNoiseButton = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.additiveNoiseButton = new System.Windows.Forms.Button();
-            this.lowPassFilterButton = new System.Windows.Forms.Button();
             this.buttonLab2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
@@ -42,7 +42,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.filterButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -59,7 +58,6 @@
             this.panel1.Controls.Add(this.ColorNoiseButton);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.additiveNoiseButton);
-            this.panel1.Controls.Add(this.lowPassFilterButton);
             this.panel1.Controls.Add(this.buttonLab2);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.button4);
@@ -73,6 +71,16 @@
             this.panel1.Size = new System.Drawing.Size(1179, 187);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // filterButton
+            // 
+            this.filterButton.Location = new System.Drawing.Point(276, 96);
+            this.filterButton.Name = "filterButton";
+            this.filterButton.Size = new System.Drawing.Size(268, 32);
+            this.filterButton.TabIndex = 10;
+            this.filterButton.Text = "Фильтр нижних (лекция)";
+            this.filterButton.UseVisualStyleBackColor = true;
+            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
             // 
             // ColorNoiseButton
             // 
@@ -101,17 +109,6 @@
             this.additiveNoiseButton.Text = "Аддитивный шум";
             this.additiveNoiseButton.UseVisualStyleBackColor = true;
             this.additiveNoiseButton.Click += new System.EventHandler(this.additiveNoiseButton_Click);
-            // 
-            // lowPassFilterButton
-            // 
-            this.lowPassFilterButton.Location = new System.Drawing.Point(276, 96);
-            this.lowPassFilterButton.Margin = new System.Windows.Forms.Padding(4);
-            this.lowPassFilterButton.Name = "lowPassFilterButton";
-            this.lowPassFilterButton.Size = new System.Drawing.Size(268, 28);
-            this.lowPassFilterButton.TabIndex = 6;
-            this.lowPassFilterButton.Text = "Фильтр нижних частот";
-            this.lowPassFilterButton.UseVisualStyleBackColor = true;
-            this.lowPassFilterButton.Click += new System.EventHandler(this.lowPassFilterButton_Click);
             // 
             // buttonLab2
             // 
@@ -228,16 +225,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click_1);
             // 
-            // filterButton
-            // 
-            this.filterButton.Location = new System.Drawing.Point(276, 132);
-            this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(268, 32);
-            this.filterButton.TabIndex = 10;
-            this.filterButton.Text = "Фильтр нижних (лекция)";
-            this.filterButton.UseVisualStyleBackColor = true;
-            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -276,7 +263,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonLab2;
-        private System.Windows.Forms.Button lowPassFilterButton;
         private System.Windows.Forms.Button additiveNoiseButton;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button ColorNoiseButton;

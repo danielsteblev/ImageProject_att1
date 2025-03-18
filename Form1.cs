@@ -263,67 +263,7 @@ namespace ImageProject_att1
         }
 
 
-        // фильтр нижних частот
-        private void lowPassFilterButton_Click(object sender, EventArgs e)
-        {
-            if (pictureBox2.Image != null)
-            {
-                Bitmap bmp = (Bitmap)pictureBox1.Image; // копия исходника
 
-                int width = bmp.Width;
-                int height = bmp.Height;
-
-                double[,] filter = new double[,]
-                    {
-                    { 1, 2, 1 },
-                    { 2, 4, 2 },
-                    { 1, 2, 1 }
-                    };
-
-                double filterSum = 16; // Сумма всех коэффициентов фильтра
-
-                for (int x = 1; x < width - 1; x++) // Начинаем с 1, чтобы избежать выхода за границы
-                {
-                    for (int y = 1; y < height - 1; y++)
-                    {
-                        double red = 0, green = 0, blue = 0;
-
-                        // Применение фильтра
-                        for (int fx = -1; fx <= 1; fx++)
-                        {
-                            for (int fy = -1; fy <= 1; fy++)
-                            {
-                                int pixelX = x + fx;
-                                int pixelY = y + fy;
-
-                                Color pixelColor = bmp.GetPixel(pixelX, pixelY);
-
-                                red += pixelColor.R * filter[fx + 1, fy + 1];
-                                green += pixelColor.G * filter[fx + 1, fy + 1];
-                                blue += pixelColor.B * filter[fx + 1, fy + 1];
-                            }
-                        }
-
-                        // Нормализуем значения и сохраняем новый пиксель
-                        int r = (int)(red / filterSum);
-                        int g = (int)(green / filterSum);
-                        int b = (int)(blue / filterSum);
-
-                        r = Math.Min(255, Math.Max(0, r));
-                        g = Math.Min(255, Math.Max(0, g));
-                        b = Math.Min(255, Math.Max(0, b));
-
-                        bmp.SetPixel(x, y, Color.FromArgb(r, g, b));
-                    }
-                }
-
-                pictureBox2.Image = bmp; // копируем новое фото
-            }
-            else
-            {
-                MessageBox.Show("Изображение не найдено!");
-            }
-        }
 
         private void additiveNoiseButton_Click(object sender, EventArgs e)
         {
@@ -431,38 +371,63 @@ namespace ImageProject_att1
             }
         }
 
+
+        // фильтр нижних частот на лекции
         private void filterButton_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image != null)
             {
-                Bitmap bmp = (Bitmap)pictureBox1.Image,
-                    bmp1 = new Bitmap(bmp.Width, bmp.Height);
-                int x, y, r, g, b; Color cl;
+                Bitmap bmp = (Bitmap)pictureBox1.Image;
+                Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
 
-                for(y = 2; y <= bmp.Height - 3; ++y)
-                    for(x = 2; x <= bmp.Width - 3; ++x)
+                double[,] kernel = CreateKernel(0.440, 0.070, 0.000); // ввод значенмй
+
+                // Сумма элементов ядра для нормализации
+                double kernelSum = SumKernel(kernel);
+
+                int x, y;
+                int r, g, b;
+                Color cl;
+
+                // Итерация по каждому пикселю изображения (исключая границы)
+                for (y = 2; y < bmp.Height - 2; ++y)
+                {
+                    for (x = 2; x < bmp.Width - 2; ++x)
                     {
                         double rs = 0, gs = 0, bs = 0;
-                        for(int i = x - 2; i <= x + 2; ++i)
-                            for(int j = y - 2; j <= y + 2; ++j)
+
+                        // Применяем маску 5x5 к окрестности пикселя (x, y)
+                        for (int i = -2; i <= 2; ++i)
+                        {
+                            for (int j = -2; j <= 2; ++j)
                             {
-                                cl = bmp.GetPixel(i, j);
+                                cl = bmp.GetPixel(x + i, y + j);
                                 r = cl.R; g = cl.G; b = cl.B;
-                                rs += r; gs += g; bs += b;
-                                
+
+                                // Умножаем на вес маски и накапливаем
+                                rs += r * kernel[i + 2, j + 2];
+                                gs += g * kernel[i + 2, j + 2];
+                                bs += b * kernel[i + 2, j + 2];
                             }
-                        r = Convert.ToInt32(rs / 25);
-                        g = Convert.ToInt32(gs / 25);
-                        b = Convert.ToInt32(bs / 25);
+                        }
 
-                        if (r < 0) r = 0; else if (r > 255) r = 255;
-                        if (g < 0) g = 0; else if (g > 255) g = 255;
-                        if (b < 0) b = 0; else if (b > 255) b = 255;
+                        // Нормализуем результат
+                        r = Convert.ToInt32(rs / kernelSum);
+                        g = Convert.ToInt32(gs / kernelSum);
+                        b = Convert.ToInt32(bs / kernelSum);
 
+                        // Ограничиваем значения диапазоном [0, 255]
+                        r = Math.Max(0, Math.Min(255, r));
+                        g = Math.Max(0, Math.Min(255, g));
+                        b = Math.Max(0, Math.Min(255, b));
+
+                        // Устанавливаем обработанный пиксель в выходное изображение
                         cl = Color.FromArgb(r, g, b);
                         bmp1.SetPixel(x, y, cl);
-
                     }
+                }
+
+                // Отображаем обработанное изображение
                 pictureBox2.Image = bmp1;
             }
             else
@@ -472,9 +437,31 @@ namespace ImageProject_att1
 
         }
 
+        private double[,] CreateKernel(double w1, double w2, double w3)
+        {
+            return new double[,] {
+            { w3, w3, w3, w3, w3 },
+            { w3, w2, w2, w2, w3 },
+            { w3, w2, w1, w2, w3 },
+            { w3, w2, w2, w2, w3 },
+            { w3, w3, w3, w3, w3 }
+        };
+        }
 
-        // todo
+        // Функция для вычисления суммы элементов ядра
+        private double SumKernel(double[,] kernel)
+        {
+            double sum = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    sum += kernel[i, j];
+                }
+            }
+            return sum;
+        }
+
+
     }
-
-
 }
