@@ -257,13 +257,6 @@ namespace ImageProject_att1
 
         }
 
-        private void pictureBox2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-
-
 
         private void additiveNoiseButton_Click(object sender, EventArgs e)
         {
@@ -437,6 +430,168 @@ namespace ImageProject_att1
 
         }
 
+        // медианный квадратом
+        private void MedianSquare_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("Сначала загрузите изображение!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Bitmap bmp = (Bitmap)pictureBox1.Image;
+            Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
+
+            for (int y = 2; y < bmp.Height - 2; y++)
+            {
+                for (int x = 2; x < bmp.Width - 2; x++)
+                {
+                    List<int> redValues = new List<int>();
+                    List<int> greenValues = new List<int>();
+                    List<int> blueValues = new List<int>();
+
+                    for (int fy = -2; fy <= 2; fy++)
+                    {
+                        for (int fx = -2; fx <= 2; fx++)
+                        {
+                            Color pixel = bmp.GetPixel(x + fx, y + fy);
+                            redValues.Add(pixel.R);
+                            greenValues.Add(pixel.G);
+                            blueValues.Add(pixel.B);
+                        }
+                    }
+
+                    redValues.Sort();
+                    greenValues.Sort();
+                    blueValues.Sort();
+
+                    int medianRed = redValues[12];
+                    int medianGreen = greenValues[12];
+                    int medianBlue = blueValues[12];
+
+                    bmp1.SetPixel(x, y, Color.FromArgb(medianRed, medianGreen, medianBlue));
+                }
+            }
+
+            pictureBox2.Image = bmp1;
+            MessageBox.Show("Медианный фильтр 5x5 применен!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        // медианный крестом
+        private void MedianCross_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("Сначала загрузите изображение!", "Ошибка",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Bitmap bmp = (Bitmap)pictureBox1.Image;
+            Bitmap resultBmp = new Bitmap(bmp.Width, bmp.Height);
+
+            for (int y = 2; y < bmp.Height - 2; y++)
+            {
+                for (int x = 2; x < bmp.Width - 2; x++)
+                {
+                    List<int> redValues = new List<int>();
+                    List<int> greenValues = new List<int>();
+                    List<int> blueValues = new List<int>();
+
+                    for (int dy = -2; dy <= 2; dy++)
+                    {
+                        Color pixel = bmp.GetPixel(x, y + dy);
+                        redValues.Add(pixel.R);
+                        greenValues.Add(pixel.G);
+                        blueValues.Add(pixel.B);
+                    }
+
+                    for (int dx = -2; dx <= 2; dx++)
+                    {
+                        if (dx == 0) continue;
+                        Color pixel = bmp.GetPixel(x + dx, y);
+                        redValues.Add(pixel.R);
+                        greenValues.Add(pixel.G);
+                        blueValues.Add(pixel.B);
+                    }
+
+                    redValues.Sort();
+                    greenValues.Sort();
+                    blueValues.Sort();
+
+                    int medianIndex = redValues.Count / 2;
+                    Color medianColor = Color.FromArgb(
+                        redValues[medianIndex],
+                        greenValues[medianIndex],
+                        blueValues[medianIndex]);
+
+                    resultBmp.SetPixel(x, y, medianColor);
+                }
+            }
+
+            pictureBox2.Image = resultBmp;
+            MessageBox.Show("Медианный фильтр (крест 5x5) применен!", "Готово",
+                           MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        private void EdgeBordersButton_Click(object sender, EventArgs e)
+        {
+            {
+                if (pictureBox1.Image == null)
+                {
+                    MessageBox.Show("Сначала загрузите изображение!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                Bitmap bmp = (Bitmap)pictureBox1.Image;
+                Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
+
+                int[,] filter = CreateEdgeKernel(2);
+
+                int filterWidth = filter.GetLength(1);
+                int filterHeight = filter.GetLength(0);
+                int filterOffset = filterWidth / 2;
+
+                int filterSum = 0;
+                foreach (int value in filter)
+                {
+                    filterSum += value;
+                }
+                if (filterSum == 0) filterSum = 1;
+
+                for (int y = filterOffset; y < bmp.Height - filterOffset; y++)
+                {
+                    for (int x = filterOffset; x < bmp.Width - filterOffset; x++)
+                    {
+                        int red = 0, green = 0, blue = 0;
+
+                        for (int fy = 0; fy < filterHeight; fy++)
+                        {
+                            for (int fx = 0; fx < filterWidth; fx++)
+                            {
+                                Color pixel = bmp.GetPixel(x + fx - filterOffset, y + fy - filterOffset);
+                                red += pixel.R * filter[fy, fx];
+                                green += pixel.G * filter[fy, fx];
+                                blue += pixel.B * filter[fy, fx];
+                            }
+                        }
+
+                        red = Math.Max(0, Math.Min(255, red / filterSum));
+                        green = Math.Max(0, Math.Min(255, green / filterSum));
+                        blue = Math.Max(0, Math.Min(255, blue / filterSum));
+
+                        bmp1.SetPixel(x, y, Color.FromArgb(red, green, blue));
+                    }
+                }
+
+                pictureBox2.Image = bmp1;
+                MessageBox.Show($"Фильтр применен!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
         private double[,] CreateKernel(double w1, double w2, double w3)
         {
             return new double[,] {
@@ -447,6 +602,47 @@ namespace ImageProject_att1
             { w3, w3, w3, w3, w3 }
         };
         }
+
+
+        private int[,] CreateEdgeKernel(int maskNumber)
+        {
+            switch (maskNumber)
+            {
+                case 1: 
+                    return new int[,]
+                    {
+                {  1, -2,  1 },
+                { -2,  5, -2 },
+                {  1, -2,  1 }
+                    };
+
+                case 2: 
+                    return new int[,]
+                    {
+                { 0, -1, 0 },
+                { -1,  5, -1 },
+                { 0, -1, 0 }
+                    };
+
+                case 3: 
+                    return new int[,]
+                    {
+                { -1, -1, -1 },
+                { -1, 9, -1 },
+                { -1, -1, -1 }
+                    };
+
+                default: 
+                    return new int[,]
+                    {
+                {  1, -2,  1 },
+                {  2, -5,  2 },
+                {  1, -2,  1 }
+                    };
+            }
+        }
+
+
 
         // Функция для вычисления суммы элементов ядра
         private double SumKernel(double[,] kernel)
@@ -461,7 +657,6 @@ namespace ImageProject_att1
             }
             return sum;
         }
-
 
     }
 }

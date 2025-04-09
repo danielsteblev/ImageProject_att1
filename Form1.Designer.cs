@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.EdgeBordersButton = new System.Windows.Forms.Button();
+            this.MedianSquare = new System.Windows.Forms.Button();
+            this.buttonLab2 = new System.Windows.Forms.Button();
+            this.MedianCross = new System.Windows.Forms.Button();
             this.filterButton = new System.Windows.Forms.Button();
             this.ColorNoiseButton = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.additiveNoiseButton = new System.Windows.Forms.Button();
-            this.buttonLab2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -54,11 +57,14 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.EdgeBordersButton);
+            this.panel1.Controls.Add(this.MedianSquare);
+            this.panel1.Controls.Add(this.buttonLab2);
+            this.panel1.Controls.Add(this.MedianCross);
             this.panel1.Controls.Add(this.filterButton);
             this.panel1.Controls.Add(this.ColorNoiseButton);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.additiveNoiseButton);
-            this.panel1.Controls.Add(this.buttonLab2);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
@@ -72,9 +78,50 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // EdgeBordersButton
+            // 
+            this.EdgeBordersButton.Location = new System.Drawing.Point(259, 126);
+            this.EdgeBordersButton.Name = "EdgeBordersButton";
+            this.EdgeBordersButton.Size = new System.Drawing.Size(196, 33);
+            this.EdgeBordersButton.TabIndex = 14;
+            this.EdgeBordersButton.Text = "Усиление границ";
+            this.EdgeBordersButton.UseVisualStyleBackColor = true;
+            this.EdgeBordersButton.Click += new System.EventHandler(this.EdgeBordersButton_Click);
+            // 
+            // MedianSquare
+            // 
+            this.MedianSquare.Location = new System.Drawing.Point(259, 88);
+            this.MedianSquare.Name = "MedianSquare";
+            this.MedianSquare.Size = new System.Drawing.Size(268, 32);
+            this.MedianSquare.TabIndex = 13;
+            this.MedianSquare.Text = "Медианный(квадратом)";
+            this.MedianSquare.UseVisualStyleBackColor = true;
+            this.MedianSquare.Click += new System.EventHandler(this.MedianSquare_Click);
+            // 
+            // buttonLab2
+            // 
+            this.buttonLab2.Location = new System.Drawing.Point(983, 8);
+            this.buttonLab2.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonLab2.Name = "buttonLab2";
+            this.buttonLab2.Size = new System.Drawing.Size(169, 37);
+            this.buttonLab2.TabIndex = 5;
+            this.buttonLab2.Text = "Синтез волны";
+            this.buttonLab2.UseVisualStyleBackColor = true;
+            this.buttonLab2.Click += new System.EventHandler(this.buttonLab2_Click);
+            // 
+            // MedianCross
+            // 
+            this.MedianCross.Location = new System.Drawing.Point(259, 49);
+            this.MedianCross.Name = "MedianCross";
+            this.MedianCross.Size = new System.Drawing.Size(268, 32);
+            this.MedianCross.TabIndex = 12;
+            this.MedianCross.Text = "Медианный(крестом)";
+            this.MedianCross.UseVisualStyleBackColor = true;
+            this.MedianCross.Click += new System.EventHandler(this.MedianCross_Click);
+            // 
             // filterButton
             // 
-            this.filterButton.Location = new System.Drawing.Point(276, 96);
+            this.filterButton.Location = new System.Drawing.Point(259, 10);
             this.filterButton.Name = "filterButton";
             this.filterButton.Size = new System.Drawing.Size(268, 32);
             this.filterButton.TabIndex = 10;
@@ -84,9 +131,9 @@
             // 
             // ColorNoiseButton
             // 
-            this.ColorNoiseButton.Location = new System.Drawing.Point(839, 96);
+            this.ColorNoiseButton.Location = new System.Drawing.Point(536, 132);
             this.ColorNoiseButton.Name = "ColorNoiseButton";
-            this.ColorNoiseButton.Size = new System.Drawing.Size(220, 28);
+            this.ColorNoiseButton.Size = new System.Drawing.Size(188, 28);
             this.ColorNoiseButton.TabIndex = 9;
             this.ColorNoiseButton.Text = "Цветной шум";
             this.ColorNoiseButton.UseVisualStyleBackColor = true;
@@ -94,7 +141,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(767, 96);
+            this.textBox2.Location = new System.Drawing.Point(729, 59);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(63, 22);
@@ -102,28 +149,17 @@
             // 
             // additiveNoiseButton
             // 
-            this.additiveNoiseButton.Location = new System.Drawing.Point(572, 96);
+            this.additiveNoiseButton.Location = new System.Drawing.Point(536, 52);
             this.additiveNoiseButton.Name = "additiveNoiseButton";
-            this.additiveNoiseButton.Size = new System.Drawing.Size(185, 28);
+            this.additiveNoiseButton.Size = new System.Drawing.Size(185, 29);
             this.additiveNoiseButton.TabIndex = 7;
             this.additiveNoiseButton.Text = "Аддитивный шум";
             this.additiveNoiseButton.UseVisualStyleBackColor = true;
             this.additiveNoiseButton.Click += new System.EventHandler(this.additiveNoiseButton_Click);
             // 
-            // buttonLab2
-            // 
-            this.buttonLab2.Location = new System.Drawing.Point(17, 96);
-            this.buttonLab2.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLab2.Name = "buttonLab2";
-            this.buttonLab2.Size = new System.Drawing.Size(237, 28);
-            this.buttonLab2.TabIndex = 5;
-            this.buttonLab2.Text = "Синтез волны";
-            this.buttonLab2.UseVisualStyleBackColor = true;
-            this.buttonLab2.Click += new System.EventHandler(this.buttonLab2_Click);
-            // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(767, 32);
+            this.textBox1.Location = new System.Drawing.Point(729, 15);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(63, 22);
@@ -132,7 +168,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(839, 32);
+            this.button4.Location = new System.Drawing.Point(932, 132);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(220, 33);
@@ -143,7 +179,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(572, 32);
+            this.button3.Location = new System.Drawing.Point(536, 8);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(185, 37);
@@ -155,10 +191,10 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.Cyan;
-            this.button2.Location = new System.Drawing.Point(276, 32);
+            this.button2.Location = new System.Drawing.Point(536, 88);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(268, 37);
+            this.button2.Size = new System.Drawing.Size(188, 37);
             this.button2.TabIndex = 1;
             this.button2.Text = "Преобразовать в чб";
             this.button2.UseVisualStyleBackColor = false;
@@ -167,7 +203,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.button1.Location = new System.Drawing.Point(16, 32);
+            this.button1.Location = new System.Drawing.Point(13, 8);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(239, 37);
@@ -223,7 +259,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click_1);
             // 
             // Form1
             // 
@@ -267,6 +302,9 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button ColorNoiseButton;
         private System.Windows.Forms.Button filterButton;
+        private System.Windows.Forms.Button MedianCross;
+        private System.Windows.Forms.Button MedianSquare;
+        private System.Windows.Forms.Button EdgeBordersButton;
     }
 }
 
