@@ -642,6 +642,180 @@ namespace ImageProject_att1
             }
         }
 
+        private void ApplySobelFilter(int[,] kernel)
+        {
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("Сначала загрузите изображение!", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Получаем исходное изображение
+            Bitmap bmp = (Bitmap)pictureBox1.Image;
+            Bitmap resultBmp = new Bitmap(bmp.Width, bmp.Height);
+
+            int kernelSize = kernel.GetLength(0); // Размер ядра (должен быть нечетным, например, 3x3)
+            int offset = kernelSize / 2; // Смещение для центрального пикселя
+
+            for (int y = offset; y < bmp.Height - offset; y++)
+            {
+                for (int x = offset; x < bmp.Width - offset; x++)
+                {
+                    double redSum = 0, greenSum = 0, blueSum = 0;
+
+                    // Применяем свертку
+                    for (int dy = -offset; dy <= offset; dy++)
+                    {
+                        for (int dx = -offset; dx <= offset; dx++)
+                        {
+                            Color pixel = bmp.GetPixel(x + dx, y + dy);
+                            int weight = kernel[offset + dy, offset + dx];
+
+                            redSum += pixel.R * weight;
+                            greenSum += pixel.G * weight;
+                            blueSum += pixel.B * weight;
+                        }
+                    }
+
+                    // Ограничиваем значения RGB в диапазоне [0, 255]
+                    int red = Math.Min(Math.Max((int)redSum, 0), 255);
+                    int green = Math.Min(Math.Max((int)greenSum, 0), 255);
+                    int blue = Math.Min(Math.Max((int)blueSum, 0), 255);
+
+                    // Устанавливаем новый цвет пикселя
+                    resultBmp.SetPixel(x, y, Color.FromArgb(red, green, blue));
+                }
+            }
+
+            // Отображаем результат
+            pictureBox2.Image = resultBmp;
+            MessageBox.Show("Фильтр применен!", "Готово",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        private int[,] CreateSobelKernel(int maskNumber)
+        {
+            switch (maskNumber)
+            {
+                case 1:
+                    return new int[,]
+                    {
+                {  -1, -2,  -1 },
+                { 0,  0, 0 },
+                {  1, 2,  1 }
+                    };
+
+                case 2:
+                    return new int[,]
+                    {
+                { -1, 0, 1 },
+                { -2,  0, 2 },
+                { -1, 0, 1 }
+                    };
+
+
+                default:
+                    return null;
+            }
+        }
+
+
+        private void ApplyLaplasFilter(int maskNumber) // Маска лапласа
+        {
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("Сначала загрузите изображение!", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Получаем исходное изображение
+            Bitmap bmp = (Bitmap)pictureBox1.Image;
+            Bitmap resultBmp = new Bitmap(bmp.Width, bmp.Height);
+
+            // Создаем ядро Лапласа
+            int[,] kernel = CreateLaplasKernel(maskNumber);
+            if (kernel == null)
+            {
+                MessageBox.Show("Неверный номер маски!", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int kernelSize = kernel.GetLength(0); // Размер ядра (должен быть нечетным, например, 3x3)
+            int offset = kernelSize / 2; // Смещение для центрального пикселя
+
+            for (int y = offset; y < bmp.Height - offset; y++)
+            {
+                for (int x = offset; x < bmp.Width - offset; x++)
+                {
+                    double intensitySum = 0;
+
+                    // Применяем свертку
+                    for (int dy = -offset; dy <= offset; dy++)
+                    {
+                        for (int dx = -offset; dx <= offset; dx++)
+                        {
+                            Color pixel = bmp.GetPixel(x + dx, y + dy);
+                            int weight = kernel[offset + dy, offset + dx];
+
+                            // Вычисляем интенсивность пикселя как среднее значение RGB
+                            double intensity = (pixel.R + pixel.G + pixel.B) / 3.0;
+                            intensitySum += intensity * weight;
+                        }
+                    }
+
+                    // Ограничиваем значения интенсивности в диапазоне [0, 255]
+                    int newIntensity = Math.Min(Math.Max((int)intensitySum, 0), 255);
+
+                    // Устанавливаем новый цвет пикселя (в градациях серого)
+                    resultBmp.SetPixel(x, y, Color.FromArgb(newIntensity, newIntensity, newIntensity));
+                }
+            }
+
+            // Отображаем результат
+            pictureBox2.Image = resultBmp;
+            MessageBox.Show("Фильтр Лапласа применен!", "Готово",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private int[,] CreateLaplasKernel(int maskNumber)
+        {
+            switch (maskNumber)
+            {
+                case 1:
+                    return new int[,]
+                    {
+                {  0, 1,  0 },
+                { 1,  -4, 1 },
+                { 0, 1,  0 }
+                    };
+
+                case 2:
+                    return new int[,]
+                    {
+                { 1, 0, 1 },
+                { 0,  -4, 0 },
+                { 1, 0, 1 }
+                    };
+
+                case 3:
+                    return new int[,]
+                    {
+                { 1, 4, 1 },
+                { 4, -20, 4 },
+                { 1, 4, 1 }
+                    };
+
+                default:
+                    return null;
+            }
+        }
+
+
+
 
 
         // Функция для вычисления суммы элементов ядра
@@ -658,5 +832,29 @@ namespace ImageProject_att1
             return sum;
         }
 
+        private void sobelButton1_Click(object sender, EventArgs e)
+        {
+            ApplySobelFilter(CreateSobelKernel(1));
+        }
+
+        private void sobelButton2_Click(object sender, EventArgs e)
+        {
+            ApplySobelFilter(CreateSobelKernel(2));
+        }
+
+        private void laplasButton_Click(object sender, EventArgs e)
+        {
+            ApplyLaplasFilter(1);
+        }
+
+        private void laplasButton2_Click(object sender, EventArgs e)
+        {
+            ApplyLaplasFilter(2);
+        }
+
+        private void laplasButton3_Click(object sender, EventArgs e)
+        {
+            ApplyLaplasFilter(3);
+        }
     }
 }

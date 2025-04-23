@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.laplasButton3 = new System.Windows.Forms.Button();
+            this.laplasButton2 = new System.Windows.Forms.Button();
+            this.laplasButton1 = new System.Windows.Forms.Button();
+            this.sobelButton2 = new System.Windows.Forms.Button();
+            this.sobelButton1 = new System.Windows.Forms.Button();
             this.EdgeBordersButton = new System.Windows.Forms.Button();
             this.MedianSquare = new System.Windows.Forms.Button();
             this.buttonLab2 = new System.Windows.Forms.Button();
@@ -45,6 +50,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -57,6 +63,12 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.laplasButton3);
+            this.panel1.Controls.Add(this.laplasButton2);
+            this.panel1.Controls.Add(this.laplasButton1);
+            this.panel1.Controls.Add(this.sobelButton2);
+            this.panel1.Controls.Add(this.sobelButton1);
             this.panel1.Controls.Add(this.EdgeBordersButton);
             this.panel1.Controls.Add(this.MedianSquare);
             this.panel1.Controls.Add(this.buttonLab2);
@@ -71,16 +83,71 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 627);
+            this.panel1.Location = new System.Drawing.Point(0, 868);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1179, 187);
+            this.panel1.Size = new System.Drawing.Size(1382, 187);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // laplasButton3
+            // 
+            this.laplasButton3.Location = new System.Drawing.Point(694, 148);
+            this.laplasButton3.Margin = new System.Windows.Forms.Padding(4);
+            this.laplasButton3.Name = "laplasButton3";
+            this.laplasButton3.Size = new System.Drawing.Size(185, 37);
+            this.laplasButton3.TabIndex = 19;
+            this.laplasButton3.Text = "Маска Лапласа";
+            this.laplasButton3.UseVisualStyleBackColor = true;
+            this.laplasButton3.Click += new System.EventHandler(this.laplasButton3_Click);
+            // 
+            // laplasButton2
+            // 
+            this.laplasButton2.Location = new System.Drawing.Point(694, 106);
+            this.laplasButton2.Margin = new System.Windows.Forms.Padding(4);
+            this.laplasButton2.Name = "laplasButton2";
+            this.laplasButton2.Size = new System.Drawing.Size(185, 37);
+            this.laplasButton2.TabIndex = 18;
+            this.laplasButton2.Text = "Маска Лапласа";
+            this.laplasButton2.UseVisualStyleBackColor = true;
+            this.laplasButton2.Click += new System.EventHandler(this.laplasButton2_Click);
+            // 
+            // laplasButton1
+            // 
+            this.laplasButton1.Location = new System.Drawing.Point(694, 61);
+            this.laplasButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.laplasButton1.Name = "laplasButton1";
+            this.laplasButton1.Size = new System.Drawing.Size(185, 37);
+            this.laplasButton1.TabIndex = 17;
+            this.laplasButton1.Text = "Маска Лапласа";
+            this.laplasButton1.UseVisualStyleBackColor = true;
+            this.laplasButton1.Click += new System.EventHandler(this.laplasButton_Click);
+            // 
+            // sobelButton2
+            // 
+            this.sobelButton2.Location = new System.Drawing.Point(887, 16);
+            this.sobelButton2.Margin = new System.Windows.Forms.Padding(4);
+            this.sobelButton2.Name = "sobelButton2";
+            this.sobelButton2.Size = new System.Drawing.Size(185, 37);
+            this.sobelButton2.TabIndex = 16;
+            this.sobelButton2.Text = "Маска 2 Собель";
+            this.sobelButton2.UseVisualStyleBackColor = true;
+            this.sobelButton2.Click += new System.EventHandler(this.sobelButton2_Click);
+            // 
+            // sobelButton1
+            // 
+            this.sobelButton1.Location = new System.Drawing.Point(694, 16);
+            this.sobelButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.sobelButton1.Name = "sobelButton1";
+            this.sobelButton1.Size = new System.Drawing.Size(185, 37);
+            this.sobelButton1.TabIndex = 15;
+            this.sobelButton1.Text = "Маска 1 Собель";
+            this.sobelButton1.UseVisualStyleBackColor = true;
+            this.sobelButton1.Click += new System.EventHandler(this.sobelButton1_Click);
+            // 
             // EdgeBordersButton
             // 
-            this.EdgeBordersButton.Location = new System.Drawing.Point(259, 126);
+            this.EdgeBordersButton.Location = new System.Drawing.Point(201, 127);
             this.EdgeBordersButton.Name = "EdgeBordersButton";
             this.EdgeBordersButton.Size = new System.Drawing.Size(196, 33);
             this.EdgeBordersButton.TabIndex = 14;
@@ -90,9 +157,9 @@
             // 
             // MedianSquare
             // 
-            this.MedianSquare.Location = new System.Drawing.Point(259, 88);
+            this.MedianSquare.Location = new System.Drawing.Point(201, 87);
             this.MedianSquare.Name = "MedianSquare";
-            this.MedianSquare.Size = new System.Drawing.Size(268, 32);
+            this.MedianSquare.Size = new System.Drawing.Size(196, 32);
             this.MedianSquare.TabIndex = 13;
             this.MedianSquare.Text = "Медианный(квадратом)";
             this.MedianSquare.UseVisualStyleBackColor = true;
@@ -100,7 +167,7 @@
             // 
             // buttonLab2
             // 
-            this.buttonLab2.Location = new System.Drawing.Point(983, 8);
+            this.buttonLab2.Location = new System.Drawing.Point(13, 53);
             this.buttonLab2.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLab2.Name = "buttonLab2";
             this.buttonLab2.Size = new System.Drawing.Size(169, 37);
@@ -111,9 +178,9 @@
             // 
             // MedianCross
             // 
-            this.MedianCross.Location = new System.Drawing.Point(259, 49);
+            this.MedianCross.Location = new System.Drawing.Point(201, 49);
             this.MedianCross.Name = "MedianCross";
-            this.MedianCross.Size = new System.Drawing.Size(268, 32);
+            this.MedianCross.Size = new System.Drawing.Size(196, 32);
             this.MedianCross.TabIndex = 12;
             this.MedianCross.Text = "Медианный(крестом)";
             this.MedianCross.UseVisualStyleBackColor = true;
@@ -121,9 +188,9 @@
             // 
             // filterButton
             // 
-            this.filterButton.Location = new System.Drawing.Point(259, 10);
+            this.filterButton.Location = new System.Drawing.Point(201, 11);
             this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(268, 32);
+            this.filterButton.Size = new System.Drawing.Size(196, 32);
             this.filterButton.TabIndex = 10;
             this.filterButton.Text = "Фильтр нижних (лекция)";
             this.filterButton.UseVisualStyleBackColor = true;
@@ -131,7 +198,7 @@
             // 
             // ColorNoiseButton
             // 
-            this.ColorNoiseButton.Location = new System.Drawing.Point(536, 132);
+            this.ColorNoiseButton.Location = new System.Drawing.Point(403, 129);
             this.ColorNoiseButton.Name = "ColorNoiseButton";
             this.ColorNoiseButton.Size = new System.Drawing.Size(188, 28);
             this.ColorNoiseButton.TabIndex = 9;
@@ -141,7 +208,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(729, 59);
+            this.textBox2.Location = new System.Drawing.Point(597, 58);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(63, 22);
@@ -149,7 +216,7 @@
             // 
             // additiveNoiseButton
             // 
-            this.additiveNoiseButton.Location = new System.Drawing.Point(536, 52);
+            this.additiveNoiseButton.Location = new System.Drawing.Point(404, 51);
             this.additiveNoiseButton.Name = "additiveNoiseButton";
             this.additiveNoiseButton.Size = new System.Drawing.Size(185, 29);
             this.additiveNoiseButton.TabIndex = 7;
@@ -159,7 +226,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(729, 15);
+            this.textBox1.Location = new System.Drawing.Point(597, 23);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(63, 22);
@@ -168,7 +235,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(932, 132);
+            this.button4.Location = new System.Drawing.Point(1158, 150);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(220, 33);
@@ -179,7 +246,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(536, 8);
+            this.button3.Location = new System.Drawing.Point(404, 11);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(185, 37);
@@ -191,7 +258,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.Cyan;
-            this.button2.Location = new System.Drawing.Point(536, 88);
+            this.button2.Location = new System.Drawing.Point(404, 85);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(188, 37);
@@ -206,9 +273,9 @@
             this.button1.Location = new System.Drawing.Point(13, 8);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(239, 37);
+            this.button1.Size = new System.Drawing.Size(181, 35);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Загрузить изображение";
+            this.button1.Text = "Входное изображение";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -232,8 +299,8 @@
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.AliceBlue;
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox2);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(1179, 627);
-            this.splitContainer1.SplitterDistance = 618;
+            this.splitContainer1.Size = new System.Drawing.Size(1382, 868);
+            this.splitContainer1.SplitterDistance = 724;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -260,12 +327,22 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(887, 61);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(185, 37);
+            this.button5.TabIndex = 20;
+            this.button5.Text = "Маска Лапласа";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1179, 814);
+            this.ClientSize = new System.Drawing.Size(1382, 1055);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -305,6 +382,12 @@
         private System.Windows.Forms.Button MedianCross;
         private System.Windows.Forms.Button MedianSquare;
         private System.Windows.Forms.Button EdgeBordersButton;
+        private System.Windows.Forms.Button sobelButton2;
+        private System.Windows.Forms.Button sobelButton1;
+        private System.Windows.Forms.Button laplasButton1;
+        private System.Windows.Forms.Button laplasButton3;
+        private System.Windows.Forms.Button laplasButton2;
+        private System.Windows.Forms.Button button5;
     }
 }
 
